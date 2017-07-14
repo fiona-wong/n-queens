@@ -80,17 +80,19 @@
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
       var rowArray = this.get(rowIndex);
-      var rowSum = rowArray.reduce(function(a, b) {
-        return a + b;
-      });
+      var rowSum = 0;
+      for (var i = 0; i < rowArray.length; i++) {
+        rowSum += rowArray[i];
+      }
+      
       return rowSum > 1;
 
     },
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      var boardInst = this.rows();
-      for (var i = 0; i < boardInst.length; i++) {
+      var boardInstance = this.rows();
+      for (var i = 0; i < boardInstance.length; i++) {
         if (this.hasRowConflictAt(i)) {
           return true;
         }
@@ -106,10 +108,10 @@
     //
     // test if a specific column on this board contains a conflict
     hasColConflictAt: function(colIndex) {
-      var boardInst = this.rows();
+      var boardInstance = this.rows();
       var pieceCount = 0;
-      for (let i = 0; i < boardInst.length; i++) {
-        if (boardInst[i][colIndex] !== 0) {
+      for (var i = 0; i < boardInstance.length; i++) {
+        if (boardInstance[i][colIndex] !== 0) {
           pieceCount++;
         }
         if (pieceCount > 1) {
@@ -194,10 +196,19 @@
         }
       }
       return false;
-    }
+    },
 
     /*--------------------  End of Helper Functions  ---------------------*/
-
+    
+    hasPieceOnRow: function(rowIndex) {
+      var rowArray = this.get(rowIndex);
+      for (var i = 0; i < rowArray.length; i++) {
+        if (rowArray[i] === 1) {
+          return true;
+        }
+      }
+    },
+    
 
   });
 
@@ -209,4 +220,10 @@
     });
   };
 
+  
+  
+
 }());
+
+
+
